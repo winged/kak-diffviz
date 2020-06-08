@@ -3,9 +3,10 @@
 Note: This is very much experimental! Commands, syntax usage may change without
 notice! Use at your own risk.
 
-
 The diffviz plugin provides you with a few commands to visualize differences
 between files or buffers.
+
+![](https://winged.ch/kak-diffviz2.gif)
 
 ## Installing
 
