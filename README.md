@@ -6,8 +6,6 @@ notice! Use at your own risk.
 The diffviz plugin provides you with a few commands to visualize differences
 between files or buffers.
 
-![animated showcase](https://winged.ch/kak-diffviz2.gif)
-
 ## Installing
 
 Assuming you're using `plug.kak`, you can just add the following line
