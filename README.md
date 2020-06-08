@@ -6,7 +6,7 @@ notice! Use at your own risk.
 The diffviz plugin provides you with a few commands to visualize differences
 between files or buffers.
 
-![](https://winged.ch/kak-diffviz2.gif)
+![animated showcase](https://winged.ch/kak-diffviz2.gif)
 
 ## Installing
 
