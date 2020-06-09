@@ -1,7 +1,20 @@
 decl -hidden line-specs diff_column
 decl -hidden str diff_reference
+decl -hidden int diff_slowdown
 
 def -hidden diff-update-marks %{
+    eval %sh{
+        now=$(date '+%s')
+        if [ -n "$kak_opt_diff_reference" -a "$kak_opt_diff_slowdown" -gt "$now" ]; then
+            # too soon
+            #echo echo -debug "too rapid diffing, slowing down. current time = $now, next diff at $kak_opt_diff_slowdown"
+        else
+            echo diff-update-marks-impl
+        fi
+    }
+}
+
+def -hidden diff-update-marks-impl %{
     # assume "our" buffer and "diff_reference" buffer are setup properly by the
     # calling "public" command
     eval -save-regs 'tr' %{
@@ -23,6 +36,7 @@ def -hidden diff-update-marks %{
             add-highlighter -override buffer/showdiff flag-lines red diff_column
         }
         eval %sh{
+            time_before=$(date '+%s')
             diff -c99999  "$kak_reg_r" "$kak_reg_t" \
             | awk -v empty="" -v buf_b="$kak_reg_percent" -v buf_a="$kak_opt_diff_reference" \
                 'BEGIN {
@@ -47,6 +61,12 @@ def -hidden diff-update-marks %{
                         printf("eval -buffer %s %{  set-option -add buffer diff_column %s|%s }\n", buffer, ln, mark)
                     }
                 }'
+            time_after=$(date '+%s')
+            time_taken=$(($time_after-$time_before))
+            time_next=$(($time_after+$time_taken+2))
+            echo echo -debug "slowdown check: time_taken=$time_taken, time_after=$time_after, time_next=$time_next"
+
+            echo set-option buffer diff_slowdown "$time_next"
         }
 
         nop %sh{rm "$kak_reg_t"}
