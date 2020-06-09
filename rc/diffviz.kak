@@ -93,6 +93,11 @@ def diff-git -docstring "compare to git base version" \
             echo rename-buffer -scratch "$kak_opt_diff_reference"
 
             echo set-option buffer readonly true
+
+            # TODO shouldn't be necessary, but my version of kak-lsp
+            # gets angry if I don't do it
+            echo set-option buffer filetype "''"
+
             echo "eval %sh{rm $reference}"
 
             echo tmux-focus "$kak_client"
