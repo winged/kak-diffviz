@@ -7,7 +7,7 @@ def -hidden diff-update-marks %{
         now=$(date '+%s')
         if [ -n "$kak_opt_diff_reference" -a "$kak_opt_diff_slowdown" -gt "$now" ]; then
             # too soon
-            #echo echo -debug "too rapid diffing, slowing down. current time = $now, next diff at $kak_opt_diff_slowdown"
+            echo echo -debug "too rapid diffing, slowing down. current time = $now, next diff at $kak_opt_diff_slowdown"
         else
             echo diff-update-marks-impl
         fi
